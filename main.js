@@ -68,16 +68,32 @@ function caesarCipher(str) {
       }
     }
   }
-  return ciphered.map(e => e.join("")).join(" ");
+  return ciphered.map((e) => e.join("")).join(" ");
 }
-
-caesarCipher("Secret message.");
 
 function isLowerCase(char) {
   return char === char.toLowerCase() ? true : false;
 }
 function isLetter(char) {
-  return (char.length === 1 && char.match(/[a-z]/i)) ? true : false;
+  return char.length === 1 && char.match(/[a-z]/i) ? true : false;
+}
+
+function analyzeArray(arr) {
+  if (arr.some((element) => isNaN(element) || element === null)) return;
+  return {
+    average: getAverageOfArray(arr),
+    min: Math.min(...arr),
+    max: Math.max(...arr),
+    length: arr.length,
+  };
+}
+
+function getAverageOfArray(arr) {
+  const sum = arr.reduce(
+    (previousVal, currentVal) => Number(previousVal) + Number(currentVal),
+    0
+  );
+  return sum / arr.length;
 }
 
 class Calculator {
@@ -118,4 +134,4 @@ class Calculator {
   }
 }
 
-export { capitalize, reverseString, Calculator, caesarCipher };
+export { capitalize, reverseString, Calculator, caesarCipher, analyzeArray };
