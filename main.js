@@ -28,6 +28,58 @@ function reverseString(str) {
   return arr.reverse().join(" ");
 }
 
+function caesarCipher(str) {
+  // key = 3
+
+  if (typeof str !== "string") return "Invalid text";
+
+  // Replace all double spaces with single spaces, trim whitespace, split words into array
+  const strings = str
+    .replace(/ +(?= )/g, "")
+    .trim()
+    .split(" ");
+
+  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+  const shifted = "defghijklmnopqrstuvwxyzabc".split("");
+  let ciphered = [];
+  // For each word
+  for (let i = 0; i < strings.length; i++) {
+    // Init as 2D array
+    ciphered[i] = [];
+
+    // For each letter in word
+    for (let j = 0; j < strings[i].length; j++) {
+      let index = 0;
+
+      // If character is a letter, find the shifted character that corresponds to that letter
+      if (isLetter(strings[i][j])) {
+        index = alphabet.findIndex(
+          (element) => element.toLowerCase() === strings[i][j].toLowerCase()
+        );
+
+        if (isLowerCase(strings[i][j])) {
+          ciphered[i][j] = shifted[index];
+        } else {
+          ciphered[i][j] = shifted[index].toUpperCase();
+        }
+      } else {
+        // If character is not a letter, keep the character to the ciphered text
+        ciphered[i][j] = strings[i][j];
+      }
+    }
+  }
+  return ciphered.map(e => e.join("")).join(" ");
+}
+
+caesarCipher("Secret message.");
+
+function isLowerCase(char) {
+  return char === char.toLowerCase() ? true : false;
+}
+function isLetter(char) {
+  return (char.length === 1 && char.match(/[a-z]/i)) ? true : false;
+}
+
 class Calculator {
   constructor() {}
   areNumbersValid(num1, num2) {
@@ -66,4 +118,4 @@ class Calculator {
   }
 }
 
-export { capitalize, reverseString, Calculator };
+export { capitalize, reverseString, Calculator, caesarCipher };
